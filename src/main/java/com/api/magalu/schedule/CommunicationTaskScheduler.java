@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
-public class TaskScheduler {
+public class CommunicationTaskScheduler {
 
     @Autowired
     private CommunicationService communicationService;
