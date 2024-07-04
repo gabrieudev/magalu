@@ -9,7 +9,7 @@ public enum ChannelEnum {
     EMAIL(1L, "email"),
     SMS(2L, "SMS"),
     PUSH(3L, "push"),
-    WHATSAPP(4L, "WhatsApp");
+    WHATSAPP(4L, "whatsapp");
 
     private Long id;
     private String description;
