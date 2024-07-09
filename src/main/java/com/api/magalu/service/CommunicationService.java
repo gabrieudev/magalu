@@ -62,8 +62,8 @@ public class CommunicationService {
         );
         Status pendingStatus = statusRepository.findByDescription("pending").orElseThrow();
         Status successStatus = statusRepository.findByDescription("success").orElseThrow();
-        Status cancelledStatus = statusRepository.findByDescription("cancelled").orElseThrow();
-        List<Communication> communications = communicationRepository.findByStatusInAndDateTimeBefore(List.of(cancelledStatus, pendingStatus), dateTime);
+        Status errorStatus = statusRepository.findByDescription("error").orElseThrow();
+        List<Communication> communications = communicationRepository.findByStatusInAndDateTimeBefore(List.of(errorStatus, pendingStatus), dateTime);
         communications.forEach(
                 communication -> {
                     try {
@@ -71,7 +71,7 @@ public class CommunicationService {
                         communication.setStatus(successStatus);
                     } catch (Exception e) {
                         log.error("error sending communication: {}", e.getLocalizedMessage());
-                        communication.setStatus(cancelledStatus);
+                        communication.setStatus(errorStatus);
                     }
                     communicationRepository.save(communication);
                 }

@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum StatusEnum {
     SUCCESS(1L, "success"),
     PENDING(2L, "pending"),
-    CANCELLED(3L, "cancelled");
+    CANCELLED(3L, "cancelled"),
+    ERROR(4L, "error");
 
     private Long id;
     private String description;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class SmsChannelService implements ChannelServiceStrategy {
 
     @Override
-    public void send(Communication communication) {
+    public void send(Communication communication) throws Exception {
         // TODO - send communication with SMS
     }
 }
