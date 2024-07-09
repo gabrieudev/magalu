@@ -48,4 +48,10 @@ public class CommunicationController {
         return ResponseEntity.ok(communicationService.update(communicationId, communicationDTO));
     }
 
+    @PostMapping("/cancel/{communicationId}")
+    public ResponseEntity<String> cancel(@PathVariable("communicationId") Long communicationId) {
+        communicationService.cancel(communicationId);
+        return ResponseEntity.ok().body("Communication cancelled successfully");
+    }
+
 }
