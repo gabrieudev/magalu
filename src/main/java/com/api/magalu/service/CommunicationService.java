@@ -1,6 +1,7 @@
 package com.api.magalu.service;
 
-import com.api.magalu.dto.CommunicationDTO;
+import com.api.magalu.controller.dto.CommunicationRequestDTO;
+import com.api.magalu.controller.dto.CommunicationResponseDTO;
 import com.api.magalu.exception.EntityNotFoundException;
 import com.api.magalu.model.Communication;
 import com.api.magalu.model.Status;
@@ -30,27 +31,27 @@ public class CommunicationService {
     @Autowired
     private StatusRepository statusRepository;
 
-    public void save(CommunicationDTO communicationDTO) {
+    public void save(CommunicationRequestDTO communicationRequestDTO) {
         Status pendingStatus = statusRepository.findByDescription("pending").orElseThrow();
-        communicationDTO.setStatus(pendingStatus);
-        Communication communication = mappingService.toModel(communicationDTO);
+        Communication communication = mappingService.toModel(communicationRequestDTO);
+        communication.setStatus(pendingStatus);
         communicationRepository.save(communication);
     }
 
-    public CommunicationDTO getById(Long id) {
+    public CommunicationResponseDTO getById(Long id) {
         Communication communication = communicationRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Communication not found with this id: " + id)
         );
-        return mappingService.toDto(communication);
+        return mappingService.toResponse(communication);
     }
 
-    public CommunicationDTO update(Long id, CommunicationDTO communicationDTO) {
+    public CommunicationResponseDTO update(Long id, CommunicationRequestDTO communicationRequestDTO) {
         Communication communication = communicationRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Communication not found with this id: " + id)
         );
-        mappingService.toModel(communicationDTO, communication);
+        mappingService.toModel(communicationRequestDTO, communication);
         Communication updatedCommunication = communicationRepository.save(communication);
-        return mappingService.toDto(updatedCommunication);
+        return mappingService.toResponse(updatedCommunication);
     }
 
     public void send(LocalDateTime dateTime) {
@@ -94,9 +95,9 @@ public class CommunicationService {
         communicationRepository.delete(communication);
     }
 
-    public Page<CommunicationDTO> getAll(Pageable pageable) {
+    public Page<CommunicationResponseDTO> getAll(Pageable pageable) {
         return communicationRepository.findAll(pageable).map(
-                communication -> mappingService.toDto(communication)
+                communication -> mappingService.toResponse(communication)
         );
     }
 

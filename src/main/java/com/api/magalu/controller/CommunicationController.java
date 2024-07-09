@@ -1,6 +1,7 @@
 package com.api.magalu.controller;
 
-import com.api.magalu.dto.CommunicationDTO;
+import com.api.magalu.controller.dto.CommunicationRequestDTO;
+import com.api.magalu.controller.dto.CommunicationResponseDTO;
 import com.api.magalu.service.CommunicationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class CommunicationController {
     private CommunicationService communicationService;
 
     @PostMapping
-    public ResponseEntity<CommunicationDTO> save(@Valid @RequestBody CommunicationDTO communicationDTO) {
-        communicationService.save(communicationDTO);
+    public ResponseEntity<CommunicationRequestDTO> save(@Valid @RequestBody CommunicationRequestDTO communicationRequestDTO) {
+        communicationService.save(communicationRequestDTO);
         return ResponseEntity.ok().build();
     }
 
@@ -31,21 +32,21 @@ public class CommunicationController {
     }
 
     @GetMapping("/{communicationId}")
-    public ResponseEntity<CommunicationDTO> getById(@PathVariable("communicationId") Long communicationId) {
+    public ResponseEntity<CommunicationResponseDTO> getById(@PathVariable("communicationId") Long communicationId) {
         return ResponseEntity.ok(communicationService.getById(communicationId));
     }
 
     @GetMapping
-    public ResponseEntity<List<CommunicationDTO>> getAll(Pageable pageable) {
+    public ResponseEntity<List<CommunicationResponseDTO>> getAll(Pageable pageable) {
         return ResponseEntity.ok(communicationService.getAll(pageable).getContent());
     }
 
     @PutMapping("/{communicationId}")
-    public ResponseEntity<CommunicationDTO> update(
+    public ResponseEntity<CommunicationResponseDTO> update(
             @PathVariable("/{communicationId}") Long communicationId,
-            @Valid @RequestBody CommunicationDTO communicationDTO
+            @Valid @RequestBody CommunicationRequestDTO communicationRequestDTO
     ) {
-        return ResponseEntity.ok(communicationService.update(communicationId, communicationDTO));
+        return ResponseEntity.ok(communicationService.update(communicationId, communicationRequestDTO));
     }
 
     @PostMapping("/cancel/{communicationId}")

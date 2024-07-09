@@ -1,7 +1,6 @@
-package com.api.magalu.dto;
+package com.api.magalu.controller.dto;
 
 import com.api.magalu.model.Channel;
-import com.api.magalu.model.Status;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,12 +11,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CommunicationDTO {
-
-    private Long id;
-
+@NoArgsConstructor
+public class CommunicationRequestDTO {
     @NotBlank
     private String receiver;
 
@@ -30,7 +26,5 @@ public class CommunicationDTO {
 
     @NotNull
     private Channel channel;
-
-    private Status status;
 
 }
