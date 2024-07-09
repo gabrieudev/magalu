@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface CommunicationRepository extends JpaRepository<Communication, Long> {
-    List<Communication> findByStatusAndDateTimeBefore(Status status, LocalDateTime dateTime);
+    List<Communication> findByStatusInAndDateTimeBefore(List<Status> cancelledStatus, LocalDateTime dateTime);
 }

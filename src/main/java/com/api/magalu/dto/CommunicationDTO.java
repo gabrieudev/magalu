@@ -31,7 +31,6 @@ public class CommunicationDTO {
     @NotNull
     private Channel channel;
 
-    @NotNull
     private Status status;
 
 }
